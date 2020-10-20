@@ -47,6 +47,8 @@ namespace SVGImage.SVG
             DependencyProperty.Register("Source", typeof(string), typeof(SVGImage), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnSourceChanged)));
         static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            if(e.NewValue==null)
+                return;
             StreamResourceInfo resource = Application.GetResourceStream(new Uri(e.NewValue.ToString(), UriKind.Relative));
             ((SVGImage)d).SetImage(resource.Stream);
         }
